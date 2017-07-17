@@ -30,6 +30,7 @@ router.post('/new', (req, res, next) => {
     tags: req.body.tags,
     creatorId: req.user._id    // IMPORTANT USER ID LOGGED IN
   });
+
   ticket.save((err, ticket) => {
     res.redirect('/');
   });

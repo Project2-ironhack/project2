@@ -9,7 +9,7 @@ const TicketSchema = mongoose.Schema({
     enum: ['html', 'css', 'js', 'node']
   },
   image: {type:String},
-  creatorID: [{type: mongoose.Schema.Types.ObjectId, ref: 'User'}]
+  creatorId: [{type: mongoose.Schema.Types.ObjectId, ref: 'User'}]
 }, {
   timestamps: {
     createdAt: "created_at",
