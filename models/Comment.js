@@ -1,5 +1,4 @@
 const mongoose     = require('mongoose');
-
 const CommentSchema = mongoose.Schema({
   content:    {type: String, required: true},
   image: {type:String},
@@ -12,7 +11,5 @@ const CommentSchema = mongoose.Schema({
     updatedAt: "updated_at"
   }
 });
-
 const Comment = mongoose.model('Comment', CommentSchema);
-
 module.exports = Ticket;

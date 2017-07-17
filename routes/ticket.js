@@ -1,8 +1,6 @@
 var express = require('express');
 var router = express.Router();
 const Ticket = require('../models/Ticket');
-
-
 // READ
 router.get('/', (req, res, next) => {
   Post.find({}, (err, tickets) => {
@@ -16,25 +14,23 @@ router.get('/', (req, res, next) => {
     }
   });
 });
-
 //  Show template form adding
 router.get('/new', (req, res, next) => {
   res.render('ticket/new', {
     title: 'Create New Ticket'
   });
 });
-
 //  Adding new Ticket
 router.post('/new', (req, res, next) => {
-  console.log('FILE',req.file);
+  console.log('USER',req.user);
   console.log('BODY',req.body);
-
   let ticket = new Ticket({
+    title: req.body.title,
     content: req.body.content,
-    creatorId: 'PRUEBA',             // IMPORTANT USER ID LOGGED IN
+    tags: req.body.tags,
+    creatorId: req.user._id    // IMPORTANT USER ID LOGGED IN
   });
-
-  post.save((err, ticket) => {
+  ticket.save((err, ticket) => {
     res.redirect('/');
   });
 });
