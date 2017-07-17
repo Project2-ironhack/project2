@@ -1,3 +1,24 @@
 <h2>Create New ticket</h2>
 
-<!-- TODO form with select > options with tags -->
+<div class="container">
+  <form action="/ticket/new" method="POST">
+    <div class="form-group">
+      <label for="title">Title</label>
+      <input type="text" class="form-control" id="title" placeholder="Enter a title for your post" name="title">
+    </div>
+    <div class="form-group">
+      <label for="content">Issue</label>
+      <textarea class="form-control" rows="5" id="content" placeholder="Write your issue" name="content"></textarea>
+    </div>
+    <div class="form-group">
+      <label for="tags">Tags</label>
+      <select class="form-control" id="tags" placeholder="Choose your tag" name="tags">
+        <option>html</option>
+        <option>css</option>
+        <option>js</option>
+        <option>node</option>
+      </select>
+    </div>
+    <button type="submit" class="btn btn-default">Send Ticket</button>
+  </form>
+</div>

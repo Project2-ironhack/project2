@@ -26,15 +26,18 @@ router.get('/new', (req, res, next) => {
 
 //  Adding new Ticket
 router.post('/new', (req, res, next) => {
-  console.log('FILE',req.file);
+  console.log('USER',req.user);
   console.log('BODY',req.body);
 
   let ticket = new Ticket({
+    title: req.body.title,
     content: req.body.content,
-    creatorId: 'PRUEBA',             // IMPORTANT USER ID LOGGED IN
+    tags: req.body.tags,
+    creatorId: req.user._id    // IMPORTANT USER ID LOGGED IN
   });
 
-  post.save((err, ticket) => {
+
+  ticket.save((err, ticket) => {
     res.redirect('/');
   });
 });
