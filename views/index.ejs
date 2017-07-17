@@ -1,2 +1,18 @@
 <h1><%= title %></h1>
 <p>Welcome to <%= title %></p>
+
+<h3><%= user.username %></h3>
+<div class="row">
+  <% tickets.forEach((ticket) => { %>
+  <div class="col-sm-6 col-md-4">
+    <div class="thumbnail">
+      <!-- <img src="<%= ticket.pic_path %>" alt="<%= ticket.pic_name %>"> -->
+      <div class="caption">
+        <h5>Author: <b><%= ticket.creatorId %></b></h5>
+        <p><%= ticket.content %></p>
+      </div>
+    </div>
+  </div>
+  <% }) %>
+
+</div>

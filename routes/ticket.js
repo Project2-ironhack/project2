@@ -2,8 +2,9 @@ var express = require('express');
 var router = express.Router();
 const Ticket = require('../models/Ticket');
 // READ
-router.get('/', (req, res, next) => {
+router.get('/list', (req, res, next) => {
   Post.find({}, (err, tickets) => {
+    console.log(tickets);
     if (err) {
       return next(err);
     } else {
@@ -23,7 +24,6 @@ router.get('/new', (req, res, next) => {
 //  Adding new Ticket
 router.post('/new', (req, res, next) => {
   console.log('USER',req.user);
-  console.log('BODY',req.body);
   let ticket = new Ticket({
     title: req.body.title,
     content: req.body.content,
