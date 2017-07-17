@@ -10,7 +10,8 @@ router.get('/', (req, res, next) => {
       return next(err);
     } else {
       res.render('index', {
-        posts: posts
+        title: "List of tickets",
+        tickets: tickets
       });
     }
   });
@@ -23,19 +24,17 @@ router.get('/new', (req, res, next) => {
   });
 });
 
-//  Adding new Post
-router.post('/new',  upload.single('image') ,(req, res, next) => {
+//  Adding new Ticket
+router.post('/new', (req, res, next) => {
   console.log('FILE',req.file);
   console.log('BODY',req.body);
 
-  let ticket = new Post({
+  let ticket = new Ticket({
     content: req.body.content,
     creatorId: 'PRUEBA',             // IMPORTANT USER ID LOGGED IN
-    pic_path: `/uploads/${req.file.filename}`,
-    pic_name: req.file.originalname
   });
 
-  post.save((err, post) => {
+  post.save((err, ticket) => {
     res.redirect('/');
   });
 });
