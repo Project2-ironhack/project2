@@ -3,9 +3,9 @@ const passport   = require('passport');
 const router     = express.Router();
 
 
-// router.get('/login', (req, res) => {
-//     res.render('auth/login', {});
-// });
+router.get('/login', (req, res) => {
+    res.render('auth/login', {});
+});
 
 router.get('/slack', passport.authorize('slack'));
 
