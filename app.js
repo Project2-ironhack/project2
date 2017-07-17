@@ -8,8 +8,11 @@ const bodyParser   = require('body-parser');
 const layouts      = require('express-ejs-layouts');
 const mongoose     = require('mongoose');
 const passport  = require('passport');
+const session = require('express-session');
+const MongoStore = require('connect-mongo')(session);
+const {  ensureLoggedIn, ensureLoggedOut } = require('connect-ensure-login');
 
-mongoose.connect('mongodb://localhost/iron-express');
+mongoose.connect('mongodb://localhost/easy-answer');
 
 const app = express();
 
@@ -28,6 +31,12 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(session({
+  secret: 'ironfundingdev',
+  resave: false,
+  saveUninitialized: true,
+  store: new MongoStore( { mongooseConnection: mongoose.connection })
+}));
 
 require('./passport/slack');
 app.use(passport.initialize());
