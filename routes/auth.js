@@ -1,19 +1,19 @@
 const express    = require('express');
 const passport   = require('passport');
 const router     = express.Router();
+const { ensureLoggedIn, ensureLoggedOut } = require('connect-ensure-login');
 
-
-router.get('/login', (req, res) => {
-    res.render('auth/login', {});
-});
-
-router.get('/slack', passport.authorize('slack'));
+// Passport Routes Configuration
+router.get('/login',  ensureLoggedOut(), passport.authenticate('slack'));
+// router.get('/login', passport.authorize('slack'));
 
 // OAuth callback url
-router.get('/slack/callback',
-  passport.authorize('slack', { failureRedirect: '/login' }),
-  (req, res) => res.redirect('/')
-);
+router.get('/slack/callback', ensureLoggedOut(),
+  passport.authenticate('slack', {
+    successRedirect : '/auth/profile',
+    failureRedirect : '/',
+    failureFlash : true
+  }));
 
 router.get('/profile', (req, res) => {
     res.render('auth/profile', {title: "Profile:"});
