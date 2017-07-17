@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express      = require('express');
 const path         = require('path');
 const favicon      = require('serve-favicon');
@@ -6,9 +7,8 @@ const cookieParser = require('cookie-parser');
 const bodyParser   = require('body-parser');
 const layouts      = require('express-ejs-layouts');
 const mongoose     = require('mongoose');
-
-
 const passport  = require('passport');
+
 mongoose.connect('mongodb://localhost/iron-express');
 
 const app = express();
@@ -30,7 +30,6 @@ app.use(layouts);
 require('./passport/slack');
 app.use(passport.initialize());
 app.use(passport.session());
-
 
 const index = require('./routes/index');
 const ticket = require('./routes/ticket');
