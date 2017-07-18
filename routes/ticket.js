@@ -1,6 +1,8 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
+const passport = require('passport')
 const Ticket = require('../models/Ticket');
+const { ensureLoggedIn, ensureLoggedOut } = require('connect-ensure-login');
 // READ
 router.get('/list', (req, res, next) => {
   Post.find({}, (err, tickets) => {
@@ -16,11 +18,10 @@ router.get('/list', (req, res, next) => {
   });
 });
 //  Show template form adding
-router.get('/new', (req, res, next) => {
-  res.render('ticket/new', {
-    title: 'Create New Ticket'
-  });
+router.get('/new', ensureLoggedIn('/auth/login'), (req, res, next) => {
+  res.render('ticket/new');
 });
+
 //  Adding new Ticket
 router.post('/new', (req, res, next) => {
   console.log('USER',req.user);
