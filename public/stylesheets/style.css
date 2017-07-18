@@ -1,5 +1,5 @@
 body {
-  padding: 50px;
+  padding: 60px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
@@ -11,7 +11,28 @@ a {
   width: 60px;
 }
 
+.jumbotron{
+    border-radius:0px!important;
+    box-shadow:1px 1px 4px rgba(0,0,0,0.4);
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-image: url(/images/2.jpeg);
+    color: #FFF;
+    position: relative;
+    height: 100%;
+    padding:20px;
+}
 
+.jumbotron h1 {
+  color: #ffeb3b;
+  text-shadow: -1px 0 black, 0 1px black;
+}
+.jumbotron .btn{
+    border-radius:0px!important;
+    box-shadow:1px 1px 4px rgba(0,0,0,0.4);
+    padding:10px 40px;
+}
 
 
 /*List CSS*/

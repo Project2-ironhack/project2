@@ -38,7 +38,6 @@ router.post('/new', (req, res, next) => {
   });
 });
 
-
 // Detail TICKET VIEW ->  IT IS NOT NECESSARY LOGIN TO VISIT THE VIEW
 router.get('/:id', (req, res, next) => {
   Ticket.findById(req.params.id).populate('creatorId').exec()

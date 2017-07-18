@@ -1,11 +1,16 @@
-<h1><%= title %></h1>
-<p>Welcome to <%= title %></p>
 
 
+<div class="row">
+<div class="col-xs-12 col-md-10 col-md-offset-1">
+  <div class="jumbotron">
+        <h1><%= title %></h1>
+        <p class="shadow">Welcome to <%= title %>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque nunc est, tempus et venenatis id, ornare sed lorem.Curabitur sed ipsum et odio interdum pharetra nec sed libero. Sed velit massa, consectetur in mollis eget, elementum eu diam.</p>
+        <p><a class="btn btn-primary btn-lg">Learn more</a></p>
+      </div>
+    </div>
+</div>
 
-<link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
 <div class="container">
-
     <% tickets.forEach((ticket) => { %>
     <div class="row">
         <div class="col-xs-12 col-md-9 col-md-offset-1">
@@ -36,7 +41,6 @@
             </div>
         </div>
     </div>
-      <% }) %>
 </div>
-
+<% }) %>
 </div>
