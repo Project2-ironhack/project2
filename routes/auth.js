@@ -1,6 +1,8 @@
 const express    = require('express');
 const passport   = require('passport');
 const router     = express.Router();
+const Ticket = require('../models/Ticket');
+const Comment = require('../models/Comment');
 const { ensureLoggedIn, ensureLoggedOut } = require('connect-ensure-login');
 
 // Passport Routes Configuration
@@ -15,13 +17,17 @@ router.get('/slack/callback', ensureLoggedOut(),
     failureFlash : true
   }));
 
-router.get('/profile', (req, res) => {
-    res.render('auth/profile', {title: "Profile:"});
+router.get('/profile', ensureLoggedIn('/auth/login'), (req, res) => {
+    let user;
+    if (req.user) user = req.user;
+    res.render('auth/profile', {
+      user: user,
+    });
 });
 
 router.get('/logout', function(req, res){
   req.logout();
-  res.redirect('/#');
+  res.redirect('/');
 });
 
 

@@ -5,24 +5,10 @@
             <div class="row">
                 <div class="col-md-12">
                 	<div>
-        				<img src="http://lorempixel.com/200/200/abstract/1/" alt="Texto Alternativo" class="img-circle img-thumbnail">
-        				<h2>Gopinath Perumal</h2>
+        				<img src="<%= user.imgAvatar%>" alt="User's pic" class="img-circle img-thumbnail">
+        				<h2><%= user.username %></h2>
         				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
         				tempor incididunt ut labore et dolore magna aliqua.</p>
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-warning">
-                                Social</button>
-                            <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown">
-                                <span class="caret"></span><span class="sr-only">Social</span>
-                            </button>
-                            <ul class="dropdown-menu" role="menu">
-                                <li><a href="#">Twitter</a></li>
-                                <li><a href="https://plus.google.com/+Jquery2dotnet/posts">Google +</a></li>
-                                <li><a href="https://www.facebook.com/jquery2dotnet">Facebook</a></li>
-                                <li class="divider"></li>
-                                <li><a href="#">Github</a></li>
-                            </ul>
-                        </div>
         			</div>
         		</div>
             </div>
@@ -31,32 +17,30 @@
             <div class="row">
     <div class="col-md-12">
     	<form role="form">
-			<h2>Edit your profile.<small>It's always easy</small></h2>
+			<h2>Your profile</h2>
 			<hr class="colorgraph">
 			<div class="row">
 				<div class="col-xs-12 col-sm-6 col-md-6">
 					<div class="form-group">
-                        <input type="text" name="first_name" id="first_name" class="form-control input-lg" placeholder="First Name" tabindex="1">
-					</div>
-				</div>
-				<div class="col-xs-12 col-sm-6 col-md-6">
-					<div class="form-group">
-						<input type="text" name="last_name" id="last_name" class="form-control input-lg" placeholder="Last Name" tabindex="2">
+									Name:
+                  <input type="text" name="name" id="name" class="form-control input-lg" placeholder="<%=user.username%>" tabindex="1">
 					</div>
 				</div>
 			</div>
 			<div class="form-group">
-				<input type="email" name="email" id="email" class="form-control input-lg" placeholder="Email Address" tabindex="4">
+				Email:<input type="email" name="email" id="email" class="form-control input-lg" placeholder="<%=user.email%>" tabindex="4">
 			</div>
 			<div class="row">
 				<div class="col-xs-12 col-sm-6 col-md-6">
 					<div class="form-group">
-						<input type="password" name="password" id="password" class="form-control input-lg" placeholder="Password" tabindex="5">
+						SlackId:
+						<input type="text" name="slackid" id="slackid" class="form-control input-lg" placeholder="<%=user.slackId%>" tabindex="5">
 					</div>
 				</div>
 				<div class="col-xs-12 col-sm-6 col-md-6">
 					<div class="form-group">
-						<input type="password" name="password_confirmation" id="password_confirmation" class="form-control input-lg" placeholder="Confirm Password" tabindex="6">
+						TeamId:
+						<input type="text" name="teamId" id="teamId" class="form-control input-lg" placeholder="<%=user.teamId%>" tabindex="6">
 					</div>
 				</div>
 			</div>
