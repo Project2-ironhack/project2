@@ -1,34 +1,43 @@
 <h3>Hola, <%= user.username %></h3>
 
 <!--ticket detail-->
-<div class="container">
-  <div class="row">
 
-    <div class="col-xs-12 col-sm-12 col-md-offset-1 col-md-10">
-      <div class="thumbnail">
-        <h3><%= ticket.title %></h3>
-        <p class="content">
-          <%= ticket.content %>
-        </p>
-        <span id="ticketId" style="visibility:hidden"><%= ticket._id %></span>
-        <div class="caption">
-          <span><img class="img-thumbnail custom" src="<%= ticket.creatorId[0].imgAvatar %>" alt="<%= ticket.creatorId[0].imgAvatar %>"></span>
-          <p>Author: <b><%= ticket.creatorId[0].username %></b></p>
-          <p>Tag:<b><%= ticket.tags %></b></p>
-          <span>Created at:<b><%= ticket.created_at %></b></span>
+    <span id="ticketId" style="visibility:hidden"><%= ticket._id %></span>
+  <div class="container">
+      <div class="row">
+          <div class="col-xs-12 col-md-9 col-md-offset-1">
+              <div class="panel panel-white post panel-shadow">
+                  <div class="post-heading">
+                      <div class="pull-left image">
+                          <img src="<%= ticket.creatorId[0].imgAvatar %>" alt="<%= ticket.creatorId[0].imgAvatar %>" class="img-circle avatar" alt="user profile image">
+                      </div>
+                      <div class="pull-left meta">
+                          <div class="title h5">
+                              <a href="#"><b><%= ticket.creatorId[0].username %></b></a>
+                              posted a question
+                          </div>
 
-
+                          <h6 class="text-muted time">Created:<%= ticket.created_at %></h6>
+                      </div>
+                  </div>
+            <div class="post-description">
+                <p><%= ticket.content %></p>
+                <div class="stats">
+                    <a href="#" class="btn btn-default stat-item">
+                        <i class="fa fa-tags icon"></i><%= ticket.tags %>
+                    </a>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
+</div>
   <!-- TODO List of comments -->
 
 
 
   <!-- TODO Form create new comment -->
   <div class="row">
-    <div class="col-xs-12 col-sm-12 col-md-offset-1 col-md-10">
+    <div class="col-xs-12 col-md-9 col-md-offset-1">
       <form id="comment-form" method="POST">
         <div class="form-group">
           <label for="content">Add comment</label>
