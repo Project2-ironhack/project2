@@ -6,7 +6,7 @@
 <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
 <div class="container">
 
-    <% tickets.forEach((ticket) => { console.log(ticket)%>
+    <% tickets.forEach((ticket) => { %>
     <div class="row">
         <div class="col-xs-12 col-md-9 col-md-offset-1">
             <div class="panel panel-white post panel-shadow">
@@ -38,23 +38,5 @@
     </div>
       <% }) %>
 </div>
-
-<!-- <h3><%= user.username %></h3>
-<div class="row">
-  <% tickets.forEach((ticket) => { console.log(ticket)%>
-  <div class="col-xs-12 col-sm-12 col-md-offset-1 col-md-10">
-    <div class="thumbnail">
-      <h3><%= ticket.title %></h3>
-      <p class="content"><%= ticket.content %></p>
-      <div class="caption">
-        <span><img class="img-thumbnail custom" src="<%= ticket.creatorId[0].imgAvatar %>" alt="<%= ticket.creatorId[0].imgAvatar %>"></span>
-        <p>Author: <b><%= ticket.creatorId[0].username %></b></p>
-        <p>Tag:<b><%= ticket.tags %></b></p>
-        <span>Created at:<b><%= ticket.created_at %></b></span>
-
-      </div>
-    </div>
-  </div>
-  <% }) %> -->
 
 </div>

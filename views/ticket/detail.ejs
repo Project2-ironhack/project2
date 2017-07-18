@@ -4,13 +4,34 @@
 <div class="col-xs-12 col-sm-12 col-md-offset-1 col-md-10">
   <div class="thumbnail">
     <h3><%= ticket.title %></h3>
-    <p class="content"><%= ticket.content %></p>
+    <p class="content">
+      <%= ticket.content %>
+    </p>
+    <span id="ticketId" style="visibility:hidden"><%= ticket._id %></span>
     <div class="caption">
       <span><img class="img-thumbnail custom" src="<%= ticket.creatorId[0].imgAvatar %>" alt="<%= ticket.creatorId[0].imgAvatar %>"></span>
       <p>Author: <b><%= ticket.creatorId[0].username %></b></p>
       <p>Tag:<b><%= ticket.tags %></b></p>
       <span>Created at:<b><%= ticket.created_at %></b></span>
-
     </div>
   </div>
+</div>
+
+<!-- TODO List of comments -->
+
+
+
+<!-- TODO Form create new comment -->
+<div class="col-xs-12 col-sm-12 col-md-offset-1 col-md-10">
+  <form id="comment-form" method="POST">
+    <div class="form-group">
+      <label for="content">Add comment</label>
+      <textarea class="form-control" id="content" name="content" rows="5"></textarea>
+    </div>
+    <div class="form-group">
+      <label for="image">Add image (optional)</label>
+      <input type="file" class="form-control" id="image" name="image">
+    </div>
+    <button> Send </button>
+  </form>
 </div>

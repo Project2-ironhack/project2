@@ -4,14 +4,11 @@ const passport = require('passport');
 const Ticket = require('../models/Ticket');
 const Comment = require('../models/Comment');
 
-const {
-  ensureLoggedIn,
-  ensureLoggedOut
-} = require('connect-ensure-login');
+const {  ensureLoggedIn,  ensureLoggedOut} = require('connect-ensure-login');
+
 // READ
 router.get('/list', (req, res, next) => {
   Ticket.find({}, (err, tickets) => {
-    console.log(tickets);
     if (err) {
       return next(err);
     } else {
@@ -29,7 +26,6 @@ router.get('/new', ensureLoggedIn('/auth/login'), (req, res, next) => {
 
 //  Adding new Ticket
 router.post('/new', (req, res, next) => {
-  console.log('USER', req.user);
   let ticket = new Ticket({
     title: req.body.title,
     content: req.body.content,
@@ -42,19 +38,11 @@ router.post('/new', (req, res, next) => {
   });
 });
 
-//detail page route
-router.get('/:id', ensureLoggedIn('/auth/login'), (req, res, next) => {
-  console.log(res.params.id);
-  res.render('ticket/detail');
-});
-
-
 
 // Detail TICKET VIEW ->  IT IS NOT NECESSARY LOGIN TO VISIT THE VIEW
 router.get('/:id', (req, res, next) => {
   Ticket.findById(req.params.id).populate('creatorId').exec()
     .then(ticket => {
-      console.log('ticket oooh yeah-> ', ticket);
       let user;
       if (req.user) user = req.user;
       res.render('ticket/detail', {
@@ -66,20 +54,22 @@ router.get('/:id', (req, res, next) => {
 });
 
 // Add new comment in ticket
-// router.post('/:id/createComment', ensureLoggedIn('/auth/login'), (req, res, next) => {
-//   console.log(req.user);
-//
-//   let comment = new Comment({
-//     name: req.body.content,
-//     image: req.body.image,
-//     ticket_rel: req.params._id,
-//     creatorCommentId: req.user._id,
-//     solved: false,
-//     votes: []
-//   });
-//   comment.save((err, obj) => {
-//     res.redirect(`/ticket/${ticket._id}`);
-//   });
-// });
+router.post('/comment/:id', (req, res, next) => {
+  console.log('post in detail id',req.body);
+
+  let comment = new Comment({
+    content: req.body.content,
+    image: req.body.image,
+    ticket_rel: req.params.id,
+    creatorCommentId: req.user._id,
+    solved: false,
+    votes: []
+  });
+  console.log('NEW COMMENT', comment);
+  comment.save((err, obj) => {
+    // res.redirect(`/ticket/${obj.ticket_rel}`);
+    res.redirect('/');
+  });
+});
 
 module.exports = router;
