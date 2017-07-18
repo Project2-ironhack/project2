@@ -4,12 +4,16 @@
 <h3><%= user.username %></h3>
 <div class="row">
   <% tickets.forEach((ticket) => { %>
-  <div class="col-sm-6 col-md-4">
+  <div class="col-xs-12 col-sm-12 col-md-offset-1 col-md-10">
     <div class="thumbnail">
-      <!-- <img src="<%= ticket.pic_path %>" alt="<%= ticket.pic_name %>"> -->
+      <h3><%= ticket.title %></h3>
+      <p class="content"><%= ticket.content %></p>
       <div class="caption">
-        <h5>Author: <b><%= ticket.creatorId %></b></h5>
-        <p><%= ticket.content %></p>
+        <span><img class="img-thumbnail custom" src="<%= ticket.creatorId[0].imgAvatar %>" alt="<%= ticket.creatorId[0].imgAvatar %>"></span>
+        <p>Author: <b><%= ticket.creatorId[0].username %></b></p>
+        <p>Tag:<b><%= ticket.tags %></b></p>
+        <span>Created at:<b><%= ticket.created_at %></b></span>
+
       </div>
     </div>
   </div>

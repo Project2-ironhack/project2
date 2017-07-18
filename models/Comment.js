@@ -5,6 +5,7 @@ const CommentSchema = mongoose.Schema({
   ticket_rel: [{type:mongoose.Schema.Types.ObjectId, ref: 'Ticket' }],
   creatorCommentId: [{type: mongoose.Schema.Types.ObjectId, ref: 'User'}],
   solved: {type: Boolean, default: false},
+  votes: []
 }, {
   timestamps: {
     createdAt: "created_at",
