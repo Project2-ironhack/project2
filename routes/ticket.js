@@ -4,7 +4,10 @@ const passport = require('passport');
 const Ticket = require('../models/Ticket');
 const Comment = require('../models/Comment');
 
-const {  ensureLoggedIn,  ensureLoggedOut} = require('connect-ensure-login');
+const {
+  ensureLoggedIn,
+  ensureLoggedOut
+} = require('connect-ensure-login');
 
 // READ
 router.get('/list', (req, res, next) => {
@@ -19,6 +22,27 @@ router.get('/list', (req, res, next) => {
     }
   });
 });
+
+
+// READ comments of the ticket
+router.get('/commentList/:id/', (req, res, next) => {
+  var id = req.params.id;
+  Comment.find({ticket_rel: id}).populate('creatorCommentId').exec( (err, comments) => {
+      console.log(comments);
+      if (err) {
+        return next(err);
+      } else {
+        let user;
+        if (req.user) user = req.user;
+        res.render('ticket/comments', {
+          user: user || 'user not defined in router.get',
+          title: "Comments",
+          comments: comments
+        });
+      }
+    });
+});
+
 //  Show template form adding
 router.get('/new', ensureLoggedIn('/auth/login'), (req, res, next) => {
   res.render('ticket/new');
@@ -52,10 +76,10 @@ router.get('/:id', (req, res, next) => {
     .catch(err => console.log(err));
 });
 
+
+
 // Add new comment in ticket
 router.post('/comment/:id', (req, res, next) => {
-  console.log('post in detail id',req.body);
-
   let comment = new Comment({
     content: req.body.content,
     image: req.body.image,
@@ -66,8 +90,7 @@ router.post('/comment/:id', (req, res, next) => {
   });
   console.log('NEW COMMENT', comment);
   comment.save((err, obj) => {
-    // res.redirect(`/ticket/${obj.ticket_rel}`);
-    res.redirect('/');
+    res.redirect(`/ticket/${obj.ticket_rel}`);
   });
 });
 
