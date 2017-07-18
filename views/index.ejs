@@ -1,9 +1,47 @@
 <h1><%= title %></h1>
 <p>Welcome to <%= title %></p>
 
-<h3><%= user.username %></h3>
+
+
+<link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
+<div class="container">
+
+    <% tickets.forEach((ticket) => { console.log(ticket)%>
+    <div class="row">
+        <div class="col-xs-12 col-md-9 col-md-offset-1">
+            <div class="panel panel-white post panel-shadow">
+                <div class="post-heading">
+                    <div class="pull-left image">
+                        <img src="<%= ticket.creatorId[0].imgAvatar %>" alt="<%= ticket.creatorId[0].imgAvatar %>" class="img-circle avatar" alt="user profile image">
+                    </div>
+                    <div class="pull-left meta">
+                        <div class="title h5">
+                            <a href="#"><b><%= ticket.creatorId[0].username %></b></a>
+                            posted a question
+                        </div>
+                        <h6 class="text-muted time">Created:<%= ticket.created_at %></h6>
+                    </div>
+                </div>
+                <div class="post-description">
+
+                  <h2><a href="/ticket/<%=ticket._id %>"><%= ticket.title %></a></h2>
+
+                    <p><%= ticket.content %></p>
+                    <div class="stats">
+                        <a href="#" class="btn btn-default stat-item">
+                            <i class="fa fa-tags icon"></i><%= ticket.tags %>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+      <% }) %>
+</div>
+
+<!-- <h3><%= user.username %></h3>
 <div class="row">
-  <% tickets.forEach((ticket) => { %>
+  <% tickets.forEach((ticket) => { console.log(ticket)%>
   <div class="col-xs-12 col-sm-12 col-md-offset-1 col-md-10">
     <div class="thumbnail">
       <h3><%= ticket.title %></h3>
@@ -17,6 +55,6 @@
       </div>
     </div>
   </div>
-  <% }) %>
+  <% }) %> -->
 
 </div>

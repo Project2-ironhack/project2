@@ -37,6 +37,12 @@ router.post('/new', (req, res, next) => {
   });
 });
 
+//detail page route
+router.get('/:id', ensureLoggedIn('/auth/login'), (req, res, next) => {
+  console.log(res.params.id);
+  res.render('ticket/detail');
+});
+
 
 
 
