@@ -19,5 +19,10 @@ router.get('/profile', (req, res) => {
     res.render('auth/profile', {title: "Profile:"});
 });
 
+router.get('/logout', function(req, res){
+  req.logout();
+  res.redirect('/#');
+});
+
 
 module.exports = router;
