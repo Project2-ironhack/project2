@@ -4,15 +4,17 @@ const Ticket = require('../models/Ticket');
 
 /* GET home page. */
 router.get('/', (req, res, next) => {
-  Ticket.find({}).populate('creatorId').exec().then((tickets) => {
-    let user;
-    if (req.user) user = req.user;
-    res.render('index', {
-      title: 'Express - Generated with IronGenerator',
-      tickets: tickets,
-      user: user || 'Easy Answer'
-    });
-  });
+  Ticket.find({}).populate('creatorId').exec()
+    .then((tickets) => {
+      let user;
+      if (req.user) user = req.user;
+      res.render('index', {
+        title: 'Express - Generated with IronGenerator',
+        tickets: tickets,
+        user: user || 'Easy Answer'
+      });
+    })
+    .catch( err => console.log(err));
 });
 
 module.exports = router;

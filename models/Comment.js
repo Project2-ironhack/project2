@@ -13,4 +13,4 @@ const CommentSchema = mongoose.Schema({
   }
 });
 const Comment = mongoose.model('Comment', CommentSchema);
-module.exports = Ticket;
+module.exports = Comment;
