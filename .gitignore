@@ -8,9 +8,6 @@ public/uploads
 logs
 *.log
 
-
-public/uploads
-
 # Runtime data
 pids
 *.pid
