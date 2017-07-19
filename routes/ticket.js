@@ -31,20 +31,23 @@ router.get('/new', ensureLoggedIn('/auth/login'), (req, res, next) => {
 
 //  Adding new Ticket
 router.post('/new', upload.single('photo'), (req, res, next) => {
-  console.log(req.file);
+  let image;
+  if (req.file) image = req.file.filename;
+  else image = "";
+
   let ticket = new Ticket({
     title: req.body.title,
     content: req.body.content,
     tags: req.body.tags,
-    image: req.file.filename,
+    image: image,
     creatorId: req.user._id // IMPORTANT USER ID LOGGED IN
   });
   console.log(ticket);
-
   ticket.save((err, ticket) => {
     res.redirect('/');
   });
 });
+
 
 // Detail TICKET VIEW ->  IT IS NOT NECESSARY LOGIN TO VISIT THE VIEW
 router.get('/:id', (req, res, next) => {
@@ -78,30 +81,19 @@ router.get('/:id/edit', ensureLoggedIn('auth/login'), (req, res, next) => {
 
 router.post('/:id', upload.single('editPhoto'), ensureLoggedIn('auth/login'),  (req, res, next) => {
 
-  console.log(req.file);
   let updates = {
     title: req.body.title,
     content: req.body.content,
     tags: req.body.tags,
     image: req.file.filename
   };
-  console.log(updates);
-  console.log("antes del findby");
   Ticket.findByIdAndUpdate(req.params.id, updates, (err, ticket) => {
-    console.log("me da igual");
     if (err) {
-      console.log("error edit ticket");
       res.render('/index', {ticket, errors:ticket.errors});
     }
-        console.log("he entrado");
         res.redirect(`/ticket/${ticket._id}`);
   });
 });
-
-
-
-
-
 
 
 // READ comments of the ticket
