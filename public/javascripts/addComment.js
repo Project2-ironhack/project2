@@ -16,7 +16,7 @@ function listCommentsOfTicket(ticketId) {
   });
 }
 
-// Print character list fetch all
+// Print comments list of a ticket
 function printCommentsList(commentsList) {
   let container = $('#comments-container');
   container.children().remove(); // Delete all containers with char info
@@ -52,14 +52,18 @@ $(document).ready(function() {
 
   const ticketId = $('#ticketId').html();
 
-  // LIST COMMENTS
-  $('#comment-list').on('click', (event) => {
-    event.preventDefault();
-    listCommentsOfTicket(ticketId).then(comments => {
-      console.log('Comments object:', comments);
+  // INIT PRINT COMMENTS
+  listCommentsOfTicket(ticketId).then(comments => {
+     printCommentsList(comments);
+   });
+
+  // Refresh view comments
+  setInterval(function () {
+   listCommentsOfTicket(ticketId).then(comments => {
       printCommentsList(comments);
     });
-  });
+  }, 5 * 1000);
+
 
   // ADD NEW COMMENT
   $('#comment-form').on('submit', (event) => {
@@ -74,9 +78,14 @@ $(document).ready(function() {
       console.log('New comment created: ', newComm);
       $('#content').val('');
       $('#image').val('');
-    }, (err, data) => {
-      console.log('ERROR', err, 'data: ', data);
+
+      listCommentsOfTicket(ticketId).then(comments => {
+        console.log('Comments object:', comments);
+        printCommentsList(comments);
+      });
+
     });
+
 
   });
 });
