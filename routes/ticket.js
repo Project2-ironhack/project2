@@ -27,14 +27,13 @@ router.get('/list', (req, res, next) => {
 //  Show template form adding
 router.get('/new', ensureLoggedIn('/auth/login'), (req, res, next) => {
   res.render('ticket/new');
-});
-
+})
+;
 //  Adding new Ticket
 router.post('/new', upload.single('photo'), (req, res, next) => {
-  let image;
-  if (req.file) image = req.file.filename;
-  else image = "";
-
+let image;
+if (req.file) image = req.file.filename;
+ else image = "";
   let ticket = new Ticket({
     title: req.body.title,
     content: req.body.content,
@@ -94,14 +93,18 @@ router.post('/:id', upload.single('editPhoto'), ensureLoggedIn('auth/login'),  (
         res.redirect(`/ticket/${ticket._id}`);
   });
 });
-
-
+router.get('/:id/delete', ensureLoggedIn('auth/login'), function(req, res, next) {
+  let id = req.params.id;
+  Ticket.findByIdAndRemove(id, (err, obj) => {
+    if (err){ return next(err); }
+    res.redirect("/");
+  });
+});
 // READ comments of the ticket
 router.get('/comment/:id', (req, res, next) => {
   var id = req.params.id;
   Comment.find({ticket_rel: id}).populate('creatorCommentId').exec()
-    .then( comments => {
-        console.log('COMMMENTS ARRIVED: ',comments);
+  .then( comments => {
         // Return JSON DATA
         res.json(comments);
     })
@@ -123,9 +126,5 @@ router.post('/comment/:id', ensureLoggedIn('/auth/login'), (req, res, next) => {
     res.redirect(`/ticket/${obj.ticket_rel}`);
   });
 });
-
-
-
-
 
 module.exports = router;
