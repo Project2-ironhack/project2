@@ -91,7 +91,7 @@ router.post('/:id', upload.single('editPhoto'), ensureLoggedIn('auth/login'),  (
     if (err) {
       res.render('/index', {ticket, errors:ticket.errors});
     }
-        res.redirect(`/ticket/${ticket._id}`);
+    res.redirect(`/ticket/${ticket._id}`);
   });
 });
 router.get('/:id/delete', ensureLoggedIn('auth/login'), function(req, res, next) {
