@@ -33,12 +33,14 @@ router.get('/new', ensureLoggedIn('/auth/login'), (req, res, next) => {
 
 //  Adding new Ticket
 router.post('/new', upload.single('photo'), (req, res, next) => {
-  console.log(req.file);
+let image;
+if (req.file) image = req.file.filename;
+ else image = "";
   let ticket = new Ticket({
     title: req.body.title,
     content: req.body.content,
     tags: req.body.tags,
-    image: req.file.filename,
+    image: image,
     creatorId: req.user._id // IMPORTANT USER ID LOGGED IN
   });
   console.log(ticket);
@@ -60,25 +62,6 @@ router.get('/:id', (req, res, next) => {
       });
       if(ticket) return ticket;
     })
-    // .then( ticket => {
-    //   Comment.find({ticket_rel: ticket._id}).populate('creatorCommentId').exec()
-    //     .then( comments => {
-    //         console.log('COMMMENTS ARRIVED: ',comments);
-    //
-    //         let user,commentsProp;
-    //         if(comments.length) commentsProp = comments;
-    //
-    //         if (req.user) user = req.user;
-    //         res.render('ticket/detail', {
-    //           user: user,
-    //           ticket: ticket,
-    //           comments: commentsProp
-    //         });
-    //
-    //
-    //
-    //     });
-    // })
     .catch(err => console.log(err));
 });
 
@@ -121,6 +104,17 @@ router.post('/:id', upload.single('editPhoto'), ensureLoggedIn('auth/login'),  (
 
 
 
+router.get('/:id/delete', ensureLoggedIn('auth/login'), function(req, res, next) {
+  let id = req.params.id;
+  Ticket.findByIdAndRemove(id, (err, obj) => {
+    if (err){ return next(err); }
+    res.redirect("/");
+    console.log(id);
+  });
+});
+
+
+module.exports = router;
 
 
 
@@ -138,7 +132,7 @@ router.get('/comment/:id', (req, res, next) => {
 });
 
 // Add new comment in ticket
-router.post('/comment/:id', (req, res, next) => {
+router.post('/comment/:id', ensureLoggedIn('/auth/login'), (req, res, next) => {
   let comment = new Comment({
     content: req.body.content,
     image: req.body.image,

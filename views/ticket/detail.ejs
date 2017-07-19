@@ -34,6 +34,17 @@
                     <a href="#" class="btn btn-default stat-item">
                         <i class="fa fa-tags icon"></i><%= ticket.tags %>
                     </a>
+
+                    <a href="/ticket/<%=ticket._id %>/edit" class="btn btn-md btn-warning">
+                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit ticket
+                    </a>
+
+
+
+                    <a href="/ticket/<%=ticket._id %>/delete" class="btn btn-md btn-danger">
+                        <i class="fa fa-trash-o" aria-hidden="true"></i> Delete ticket
+                    </a>
+
                 </div>
             </div>
         </div>
