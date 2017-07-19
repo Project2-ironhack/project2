@@ -24,8 +24,6 @@ router.get('/list', (req, res, next) => {
   });
 });
 
-
-
 //  Show template form adding
 router.get('/new', ensureLoggedIn('/auth/login'), (req, res, next) => {
   res.render('ticket/new');
@@ -60,25 +58,6 @@ router.get('/:id', (req, res, next) => {
       });
       if(ticket) return ticket;
     })
-    // .then( ticket => {
-    //   Comment.find({ticket_rel: ticket._id}).populate('creatorCommentId').exec()
-    //     .then( comments => {
-    //         console.log('COMMMENTS ARRIVED: ',comments);
-    //
-    //         let user,commentsProp;
-    //         if(comments.length) commentsProp = comments;
-    //
-    //         if (req.user) user = req.user;
-    //         res.render('ticket/detail', {
-    //           user: user,
-    //           ticket: ticket,
-    //           comments: commentsProp
-    //         });
-    //
-    //
-    //
-    //     });
-    // })
     .catch(err => console.log(err));
 });
 
@@ -95,7 +74,7 @@ router.get('/comment/:id', (req, res, next) => {
 });
 
 // Add new comment in ticket
-router.post('/comment/:id', (req, res, next) => {
+router.post('/comment/:id', ensureLoggedIn('/auth/login'), (req, res, next) => {
   let comment = new Comment({
     content: req.body.content,
     image: req.body.image,
