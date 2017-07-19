@@ -1,7 +1,7 @@
 <h2>Create New ticket</h2>
 
 <div class="container">
-  <form action="/ticket/new" method="POST">
+  <form action="/ticket/new" method="POST" enctype="multipart/form-data">
     <div class="form-group">
       <label for="title">Title</label>
       <input type="text" class="form-control" id="title" placeholder="Enter a title for your post" name="title">
@@ -18,6 +18,9 @@
         <option>js</option>
         <option>node</option>
       </select>
+    </div>
+    <div class="form-group">
+      <input type="file" name="photo">
     </div>
     <button type="submit" class="btn btn-default">Send Ticket</button>
   </form>
