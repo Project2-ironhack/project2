@@ -80,22 +80,18 @@ router.get('/:id/edit', ensureLoggedIn('auth/login'), (req, res, next) => {
 
 router.post('/:id', upload.single('editPhoto'), ensureLoggedIn('auth/login'),  (req, res, next) => {
 
-  console.log(req.file);
+
   let updates = {
     title: req.body.title,
     content: req.body.content,
     tags: req.body.tags,
     image: req.file.filename
   };
-  console.log(updates);
-  console.log("antes del findby");
+
   Ticket.findByIdAndUpdate(req.params.id, updates, (err, ticket) => {
-    console.log("me da igual");
     if (err) {
-      console.log("error edit ticket");
       res.render('/index', {ticket, errors:ticket.errors});
     }
-        console.log("he entrado");
         res.redirect(`/ticket/${ticket._id}`);
   });
 });
@@ -107,14 +103,8 @@ router.get('/:id/delete', ensureLoggedIn('auth/login'), function(req, res, next)
   Ticket.findByIdAndRemove(id, (err, obj) => {
     if (err){ return next(err); }
     res.redirect("/");
-    console.log(id);
   });
 });
-
-
-module.exports = router;
-
-
 
 
 // READ comments of the ticket
@@ -122,7 +112,6 @@ router.get('/comment/:id', (req, res, next) => {
   var id = req.params.id;
   Comment.find({ticket_rel: id}).populate('creatorCommentId').exec()
     .then( comments => {
-        console.log('COMMMENTS ARRIVED: ',comments);
         // Return JSON DATA
         res.json(comments);
     })
@@ -144,9 +133,5 @@ router.post('/comment/:id', ensureLoggedIn('/auth/login'), (req, res, next) => {
     res.redirect(`/ticket/${obj.ticket_rel}`);
   });
 });
-
-
-
-
 
 module.exports = router;
