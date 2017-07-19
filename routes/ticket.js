@@ -27,8 +27,8 @@ router.get('/list', (req, res, next) => {
 //  Show template form adding
 router.get('/new', ensureLoggedIn('/auth/login'), (req, res, next) => {
   res.render('ticket/new');
-});
-
+})
+;
 //  Adding new Ticket
 router.post('/new', upload.single('photo'), (req, res, next) => {
 let image;
@@ -42,11 +42,11 @@ if (req.file) image = req.file.filename;
     creatorId: req.user._id // IMPORTANT USER ID LOGGED IN
   });
   console.log(ticket);
-
   ticket.save((err, ticket) => {
     res.redirect('/');
   });
 });
+
 
 // Detail TICKET VIEW ->  IT IS NOT NECESSARY LOGIN TO VISIT THE VIEW
 router.get('/:id', (req, res, next) => {
@@ -80,14 +80,20 @@ router.get('/:id/edit', ensureLoggedIn('auth/login'), (req, res, next) => {
 
 router.post('/:id', upload.single('editPhoto'), ensureLoggedIn('auth/login'),  (req, res, next) => {
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> fae49653ed0e5d729c2586f872a814ce9ec257e5
   let updates = {
     title: req.body.title,
     content: req.body.content,
     tags: req.body.tags,
     image: req.file.filename
   };
+<<<<<<< HEAD
 
+=======
+>>>>>>> fae49653ed0e5d729c2586f872a814ce9ec257e5
   Ticket.findByIdAndUpdate(req.params.id, updates, (err, ticket) => {
     if (err) {
       res.render('/index', {ticket, errors:ticket.errors});
@@ -95,9 +101,6 @@ router.post('/:id', upload.single('editPhoto'), ensureLoggedIn('auth/login'),  (
         res.redirect(`/ticket/${ticket._id}`);
   });
 });
-
-
-
 router.get('/:id/delete', ensureLoggedIn('auth/login'), function(req, res, next) {
   let id = req.params.id;
   Ticket.findByIdAndRemove(id, (err, obj) => {
@@ -105,13 +108,20 @@ router.get('/:id/delete', ensureLoggedIn('auth/login'), function(req, res, next)
     res.redirect("/");
   });
 });
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> fae49653ed0e5d729c2586f872a814ce9ec257e5
 // READ comments of the ticket
 router.get('/comment/:id', (req, res, next) => {
   var id = req.params.id;
   Comment.find({ticket_rel: id}).populate('creatorCommentId').exec()
+<<<<<<< HEAD
     .then( comments => {
+=======
+  .then( comments => {
+>>>>>>> fae49653ed0e5d729c2586f872a814ce9ec257e5
         // Return JSON DATA
         res.json(comments);
     })
