@@ -58,7 +58,27 @@ router.get('/:id', (req, res, next) => {
         user: user,
         ticket: ticket
       });
+      if(ticket) return ticket;
     })
+    // .then( ticket => {
+    //   Comment.find({ticket_rel: ticket._id}).populate('creatorCommentId').exec()
+    //     .then( comments => {
+    //         console.log('COMMMENTS ARRIVED: ',comments);
+    //
+    //         let user,commentsProp;
+    //         if(comments.length) commentsProp = comments;
+    //
+    //         if (req.user) user = req.user;
+    //         res.render('ticket/detail', {
+    //           user: user,
+    //           ticket: ticket,
+    //           comments: commentsProp
+    //         });
+    //
+    //
+    //
+    //     });
+    // })
     .catch(err => console.log(err));
 });
 
@@ -108,17 +128,11 @@ router.post('/:id', upload.single('editPhoto'), ensureLoggedIn('auth/login'),  (
 // READ comments of the ticket
 router.get('/comment/:id', (req, res, next) => {
   var id = req.params.id;
-  console.info('request ajax ',id);
   Comment.find({ticket_rel: id}).populate('creatorCommentId').exec()
     .then( comments => {
-        console.log('ESPERANDO COMMMENTS: ',comments);
-
-        // res.render('ticket/comments', {
-        //   user: user || 'user not defined in router.get',
-        //   title: "Comments",
-        //   comments: comments
-        // });
-
+        console.log('COMMMENTS ARRIVED: ',comments);
+        // Return JSON DATA
+        res.json(comments);
     })
     .catch( err => console.log(err));
 });

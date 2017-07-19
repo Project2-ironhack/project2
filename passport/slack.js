@@ -35,7 +35,7 @@ passport.use(new SlackStrategy({
     if(!user) return new User(newUser).save();
     return User.findByIdAndUpdate(user._id, newUser,{new:true}).exec();
   })
-  .then( user => next(null, user))
+  .then( user => next(null, user))  // go to next middleware
   .catch(e => next(e));
 }
 ));
