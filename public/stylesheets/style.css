@@ -6,6 +6,7 @@ body {
 
 a {
   color: #00B7FF;
+    word-wrap: break-word;
 }
 
 .img-thumbnail.custom{
@@ -85,11 +86,13 @@ a {
 .panel-white  .panel-footer {
   background-color: #fff;
   border-color: #ddd;
+    word-wrap: break-word;
 }
 
 .post .post-heading {
   height: 70px;
   padding: 20px 15px;
+  word-wrap: break-word;
 }
 .post .post-heading .avatar {
   width: 60px;

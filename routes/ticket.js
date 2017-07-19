@@ -1,9 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const passport = require('passport');
+const multer = require('multer');
 const Ticket = require('../models/Ticket');
 const Comment = require('../models/Comment');
-
+const upload = multer ({dest: './public/uploads'});
 const {
   ensureLoggedIn,
   ensureLoggedOut
@@ -49,13 +50,16 @@ router.get('/new', ensureLoggedIn('/auth/login'), (req, res, next) => {
 });
 
 //  Adding new Ticket
-router.post('/new', (req, res, next) => {
+router.post('/new', upload.single('photo'), (req, res, next) => {
+  console.log(req.file);
   let ticket = new Ticket({
     title: req.body.title,
     content: req.body.content,
     tags: req.body.tags,
+    image: req.file.filename,
     creatorId: req.user._id // IMPORTANT USER ID LOGGED IN
   });
+  console.log(ticket);
 
   ticket.save((err, ticket) => {
     res.redirect('/');
