@@ -6,7 +6,6 @@ body {
 
 a {
   color: #00B7FF;
-    word-wrap: break-word;
 }
 
 .img-thumbnail.custom{
@@ -86,13 +85,11 @@ a {
 .panel-white  .panel-footer {
   background-color: #fff;
   border-color: #ddd;
-    word-wrap: break-word;
 }
 
 .post .post-heading {
   height: 70px;
   padding: 20px 15px;
-  word-wrap: break-word;
 }
 .post .post-heading .avatar {
   width: 60px;
@@ -112,6 +109,7 @@ a {
 .post .post-heading .meta .time {
   margin-top: 8px;
   color: #999;
+    word-wrap: break-word;
 }
 .post .post-image .image {
   width: 100%;
@@ -120,9 +118,15 @@ a {
 .post .post-description {
   padding: 15px;
 }
+
 .post .post-description p {
   font-size: 14px;
 }
+
+.post .post-description a {
+  word-wrap: break-word;
+}
+
 .post .post-description .stats {
   margin-top: 20px;
 }
