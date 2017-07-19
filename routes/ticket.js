@@ -27,7 +27,7 @@ router.get('/list', (req, res, next) => {
 // READ comments of the ticket
 router.get('/commentList/:id/', (req, res, next) => {
   var id = req.params.id;
-  Comment.find({ticket_rel: id}).populate('creatorCommentId').exec( (err, comments) => {
+  Comment.find({ticket_rel: id}).populate('creatorCommentId').exec((err, comments) => {
       console.log(comments);
       if (err) {
         return next(err);

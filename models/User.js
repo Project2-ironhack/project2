@@ -4,6 +4,8 @@ const UserSchema = mongoose.Schema({
   token: String,
   slackId: String,
   teamId: String,
+  teamName: String,
+  teamImage: String,
   username: String,
   email: String,
   imgAvatar: {type: String, default:"https://placeholdit.imgix.net/~text?txtsize=33&txt=250%C3%97250&w=250&h=250" }
