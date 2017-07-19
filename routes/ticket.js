@@ -80,20 +80,13 @@ router.get('/:id/edit', ensureLoggedIn('auth/login'), (req, res, next) => {
 
 router.post('/:id', upload.single('editPhoto'), ensureLoggedIn('auth/login'),  (req, res, next) => {
 
-<<<<<<< HEAD
-
-=======
->>>>>>> fae49653ed0e5d729c2586f872a814ce9ec257e5
   let updates = {
     title: req.body.title,
     content: req.body.content,
     tags: req.body.tags,
     image: req.file.filename
   };
-<<<<<<< HEAD
 
-=======
->>>>>>> fae49653ed0e5d729c2586f872a814ce9ec257e5
   Ticket.findByIdAndUpdate(req.params.id, updates, (err, ticket) => {
     if (err) {
       res.render('/index', {ticket, errors:ticket.errors});
@@ -108,20 +101,12 @@ router.get('/:id/delete', ensureLoggedIn('auth/login'), function(req, res, next)
     res.redirect("/");
   });
 });
-<<<<<<< HEAD
 
-
-=======
->>>>>>> fae49653ed0e5d729c2586f872a814ce9ec257e5
 // READ comments of the ticket
 router.get('/comment/:id', (req, res, next) => {
   var id = req.params.id;
   Comment.find({ticket_rel: id}).populate('creatorCommentId').exec()
-<<<<<<< HEAD
-    .then( comments => {
-=======
   .then( comments => {
->>>>>>> fae49653ed0e5d729c2586f872a814ce9ec257e5
         // Return JSON DATA
         res.json(comments);
     })
