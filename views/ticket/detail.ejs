@@ -25,6 +25,11 @@
                   </div>
             <div class="post-description">
                 <p><%= ticket.content %></p>
+                <% if (ticket.image !== undefined) { %>
+
+                <img src="/uploads/<%=ticket.image %>" class="img-responsive img-thumbnail" >
+
+                <% } %>
                 <div class="stats">
                     <a href="#" class="btn btn-default stat-item">
                         <i class="fa fa-tags icon"></i><%= ticket.tags %>
@@ -37,6 +42,11 @@
 
 
   <!-- TODO List of comments -->
+  <div class="row comment">
+      <div class="col-xs-12 col-md-10 col-md-offset-1">
+      </div>
+  </div>
+  <input type="button" id="comment-list" class="btn btn-primary" value="List Comments">
 
 
   <!-- TODO Form create new comment -->
