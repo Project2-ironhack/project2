@@ -62,6 +62,49 @@ router.get('/:id', (req, res, next) => {
     .catch(err => console.log(err));
 });
 
+//EDIT ticket - goes to the EDIT view
+router.get('/:id/edit', ensureLoggedIn('auth/login'), (req, res, next) => {
+  Ticket.findById(req.params.id, (err, ticket) => {
+    if (err)  {
+      return next(err); }
+    else {
+    let user;
+    res.render('ticket/edit', {
+      user: user,
+      ticket: ticket
+    });
+  }
+  });
+});
+
+router.post('/:id', upload.single('editPhoto'), ensureLoggedIn('auth/login'),  (req, res, next) => {
+
+  console.log(req.file);
+  let updates = {
+    title: req.body.title,
+    content: req.body.content,
+    tags: req.body.tags,
+    image: req.file.filename
+  };
+  console.log(updates);
+  console.log("antes del findby");
+  Ticket.findByIdAndUpdate(req.params.id, updates, (err, ticket) => {
+    console.log("me da igual");
+    if (err) {
+      console.log("error edit ticket");
+      res.render('/index', {ticket, errors:ticket.errors});
+    }
+        console.log("he entrado");
+        res.redirect(`/ticket/${ticket._id}`);
+  });
+});
+
+
+
+
+
+
+
 // READ comments of the ticket
 router.get('/comment/:id', (req, res, next) => {
   var id = req.params.id;
@@ -95,5 +138,9 @@ router.post('/comment/:id', (req, res, next) => {
     res.redirect(`/ticket/${obj.ticket_rel}`);
   });
 });
+
+
+
+
 
 module.exports = router;

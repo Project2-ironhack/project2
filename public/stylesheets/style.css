@@ -12,6 +12,11 @@ a {
   width: 60px;
 }
 
+.img-preview {
+  width: 250px;
+  margin-top: 2px;
+}
+
 .jumbotron{
     border-radius:10px!important;
     box-shadow:1px 1px 4px rgba(0,0,0,0.4);
