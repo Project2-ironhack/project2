@@ -24,8 +24,6 @@ router.get('/list', (req, res, next) => {
   });
 });
 
-
-
 //  Show template form adding
 router.get('/new', ensureLoggedIn('/auth/login'), (req, res, next) => {
   res.render('ticket/new');
