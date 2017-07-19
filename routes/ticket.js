@@ -25,24 +25,6 @@ router.get('/list', (req, res, next) => {
 });
 
 
-// READ comments of the ticket
-router.get('/commentList/:id/', (req, res, next) => {
-  var id = req.params.id;
-  Comment.find({ticket_rel: id}).populate('creatorCommentId').exec( (err, comments) => {
-      console.log(comments);
-      if (err) {
-        return next(err);
-      } else {
-        let user;
-        if (req.user) user = req.user;
-        res.render('ticket/comments', {
-          user: user || 'user not defined in router.get',
-          title: "Comments",
-          comments: comments
-        });
-      }
-    });
-});
 
 //  Show template form adding
 router.get('/new', ensureLoggedIn('/auth/login'), (req, res, next) => {
@@ -80,7 +62,23 @@ router.get('/:id', (req, res, next) => {
     .catch(err => console.log(err));
 });
 
+// READ comments of the ticket
+router.get('/comment/:id', (req, res, next) => {
+  var id = req.params.id;
+  console.info('request ajax ',id);
+  Comment.find({ticket_rel: id}).populate('creatorCommentId').exec()
+    .then( comments => {
+        console.log('ESPERANDO COMMMENTS: ',comments);
 
+        // res.render('ticket/comments', {
+        //   user: user || 'user not defined in router.get',
+        //   title: "Comments",
+        //   comments: comments
+        // });
+
+    })
+    .catch( err => console.log(err));
+});
 
 // Add new comment in ticket
 router.post('/comment/:id', (req, res, next) => {

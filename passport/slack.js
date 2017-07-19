@@ -15,14 +15,15 @@ passport.use(new SlackStrategy({
     clientID: CLIENT_ID,
     clientSecret: CLIENT_SECRET
   }, (accessToken, refreshToken, profile, next) => {
-    console.log('ACCESS TOKEN',accessToken);
 
-    console.log(profile.user);
+    console.log(profile);
     // done(null, profile);
     let newUser = {
       token: accessToken,
       slackId: profile.user.id || '',
       teamId: profile.team.id || '',
+      teamName: profile.team.name || '',
+      teamImage: profile.team.image_88 || '',
       username: profile.user.name || '',
       email: profile.user.email || '',
       imgAvatar: profile.user.image_512 || ''

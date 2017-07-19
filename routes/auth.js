@@ -7,7 +7,6 @@ const { ensureLoggedIn, ensureLoggedOut } = require('connect-ensure-login');
 
 // Passport Routes Configuration
 router.get('/login',  ensureLoggedOut(), passport.authenticate('slack'));
-// router.get('/login', passport.authorize('slack'));
 
 // OAuth callback url
 router.get('/slack/callback', ensureLoggedOut(),

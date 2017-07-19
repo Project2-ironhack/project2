@@ -33,14 +33,9 @@
 			<div class="row">
 				<div class="col-xs-12 col-sm-6 col-md-6">
 					<div class="form-group">
-						SlackId:
-						<input type="text" name="slackid" id="slackid" class="form-control input-lg" placeholder="<%=user.slackId%>" tabindex="5">
-					</div>
-				</div>
-				<div class="col-xs-12 col-sm-6 col-md-6">
-					<div class="form-group">
-						TeamId:
-						<input type="text" name="teamId" id="teamId" class="form-control input-lg" placeholder="<%=user.teamId%>" tabindex="6">
+						Slack Team:
+						<span><img src="<%= user.teamImage %>" alt="Slack team image"></span>
+						<input type="text" name="teamId" id="teamId" class="form-control input-lg" placeholder="<%=user.teamName%>" tabindex="6">
 					</div>
 				</div>
 			</div>
