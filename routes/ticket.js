@@ -128,3 +128,5 @@ router.post('/comment/:id', ensureLoggedIn('/auth/login'), (req, res, next) => {
     res.redirect(`/ticket/${obj.ticket_rel}`);
   });
 });
+
+module.exports = router;
