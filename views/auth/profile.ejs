@@ -7,13 +7,12 @@
                 	<div>
         				<img src="<%= user.imgAvatar%>" alt="User's pic" class="img-circle img-thumbnail">
         				<h2><%= user.username %></h2>
-        				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-        				tempor incididunt ut labore et dolore magna aliqua.</p>
+        				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrum </p>
         			</div>
         		</div>
             </div>
         </div>
-        <div class="col-md-8 well" id="rightPanel">
+        <div class="col-md-8 well" id="rightPanel" >
             <div class="row">
     <div class="col-md-12">
     	<form role="form">
@@ -23,26 +22,28 @@
 				<div class="col-xs-12 col-sm-6 col-md-6">
 					<div class="form-group">
 									Name:
-                  <input type="text" name="name" id="name" class="form-control input-lg" placeholder="<%=user.username%>" tabindex="1">
+                  <input type="text" name="name" id="name" class="form-control input-lg" value="<%=user.username%>" tabindex="1" readonly>
 					</div>
 				</div>
 			</div>
 			<div class="form-group">
-				Email:<input type="email" name="email" id="email" class="form-control input-lg" placeholder="<%=user.email%>" tabindex="4">
+				Email:<input type="email" name="email" id="email" class="form-control input-lg" value="<%=user.email%>" tabindex="4" readonly>
 			</div>
 			<div class="row">
 				<div class="col-xs-12 col-sm-6 col-md-6">
-					<div class="form-group">
 						Slack Team:
-						<span><img src="<%= user.teamImage %>" alt="Slack team image"></span>
-						<input type="text" name="teamId" id="teamId" class="form-control input-lg" placeholder="<%=user.teamName%>" tabindex="6">
+						<input type="text" name="teamId" id="teamId" class="form-control input-lg" value="<%=user.teamName%>" tabindex="6" readonly>
 					</div>
+					<div class="col-xs-12 col-sm-6 col-md-6">
+						<img class="img-rounded" src="<%= user.teamImage %>" alt="Slack team image">
+						</div>
 				</div>
-			</div>
+
+
 			<hr class="colorgraph">
 			<div class="row">
 				<div class="col-xs-12 col-md-6"></div>
-				<div class="col-xs-12 col-md-6"><a href="#" class="btn btn-success btn-block btn-lg">Save</a></div>
+				<div class="col-xs-12 col-md-6"><a href="/ticket/new" class="btn btn-success btn-block btn-lg">Post a New Question</a></div>
 			</div>
 		</form>
 	</div>

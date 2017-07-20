@@ -62,7 +62,6 @@
 .post .post-heading .meta .time {
   margin-top: 8px;
   color: #999;
-    word-wrap: break-word;
 }
 .post .post-image .image {
   width: 100%;
@@ -74,13 +73,11 @@
 
 .post .post-description p {
   font-size: 17px;
+  word-wrap: break-word;
 }
 
 .post .post-description h2 {
   font-size: 35px;
-}
-
-.post .post-description a {
   word-wrap: break-word;
 }
 

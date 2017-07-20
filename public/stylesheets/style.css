@@ -22,6 +22,10 @@ a {
   max-width: 400px;
 }
 
+.well {
+  padding:21px;
+}
+
 .jumbotron{
     /*border-radius:10px!important;*/
     box-shadow:1px 1px 4px rgba(0,0,0,0.4);
@@ -86,6 +90,7 @@ a {
 
 .details-title {
   color: #18bc9c;
+  word-wrap: break-word;
 }
 
 .floatright {
@@ -96,6 +101,7 @@ a {
 fieldset {
   margin-top:30px;
 }
+
 
 /*.navbar {
   background: #32606A;
