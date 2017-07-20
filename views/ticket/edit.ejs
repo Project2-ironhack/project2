@@ -38,9 +38,10 @@
       <div class="col-lg-10">
         <input type="file" name="editPhoto">
 
+        <% if (ticket.image != "nofile" || ticket.image == undefined ) { %>
+          <img src="/uploads/<%=ticket.image %>" class="img-responsive img-thumbnail imgdetails" >
 
-        <img src="/uploads/<%=ticket.image %>" class="img-thumbnail img-responsive img-preview">
-
+        <% } %>
 
       </div>
     </div>

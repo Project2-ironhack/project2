@@ -34,7 +34,7 @@ router.post('/new', upload.single('photo'), (req, res, next) => {
 
   let image;
   if (req.file) image = req.file.filename;
-  else image = "";
+  else image = 'nofile';
 
   let ticket = new Ticket({
     title: req.body.title,
@@ -81,7 +81,7 @@ router.post('/:id', upload.single('editPhoto'), ensureLoggedIn('auth/login'),  (
 
   let image;
   if (req.file) image = req.file.filename;
-  else image = "";
+  else image = 'nofile';
 
   let updates = {
     title: req.body.title,

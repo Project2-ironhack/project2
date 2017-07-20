@@ -23,8 +23,7 @@
             <div class="post-description">
                 <p><%= ticket.content %></p>
 
-                <% if (!ticket.image || ticket.image != "") { %>
-
+                <% if (ticket.image != "nofile" || ticket.image == undefined ) { %>
                   <img src="/uploads/<%=ticket.image %>" class="img-responsive img-thumbnail imgdetails" >
 
                 <% } %>

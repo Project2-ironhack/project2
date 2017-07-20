@@ -13,8 +13,11 @@ const MongoStore = require('connect-mongo')(session);
 const {  ensureLoggedIn, ensureLoggedOut } = require('connect-ensure-login');
 const debug = require('debug')(`easy-answer:${path.basename(__filename).split('.')[0]}`);
 
-
-mongoose.connect('mongodb://localhost/easy-answer');
+// Connect to mongo database
+const dburl = process.env.MONGO_DB_URL;
+debug(`Connecting to ${dburl}`);
+mongoose.connect(dburl).then( () => debug('DB Connected!'));
+// mongoose.connect('mongodb://localhost/easy-answer');
 
 const app = express();
 
