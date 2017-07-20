@@ -44,6 +44,11 @@ require('./passport/slack');
 app.use(passport.initialize());
 app.use(passport.session());
 
+app.use((req, res, next)=> {
+  res.locals.user = req.user;
+  next();
+});
+
 const index = require('./routes/index');
 const ticket = require('./routes/ticket');
 const auth = require('./routes/auth');
