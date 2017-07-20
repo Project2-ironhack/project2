@@ -31,15 +31,14 @@ router.get('/new', ensureLoggedIn('/auth/login'), (req, res, next) => {
 
 //  Adding new Ticket
 router.post('/new', upload.single('photo'), (req, res, next) => {
-  let image;
-  if (req.file) image = req.file.filename;
-  else image = "";
-
+let image;
+if (req.file) image = req.file.filename;
+ // else image = "";
   let ticket = new Ticket({
     title: req.body.title,
     content: req.body.content,
     tags: req.body.tags,
-    image: image,
+    image: req.file.filename || 'nofile',
     creatorId: req.user._id // IMPORTANT USER ID LOGGED IN
   });
   console.log(ticket);
@@ -87,21 +86,27 @@ router.post('/:id', upload.single('editPhoto'), ensureLoggedIn('auth/login'),  (
     tags: req.body.tags,
     image: req.file.filename
   };
+
   Ticket.findByIdAndUpdate(req.params.id, updates, (err, ticket) => {
     if (err) {
       res.render('/index', {ticket, errors:ticket.errors});
     }
-        res.redirect(`/ticket/${ticket._id}`);
+    res.redirect(`/ticket/${ticket._id}`);
   });
 });
-
+router.get('/:id/delete', ensureLoggedIn('auth/login'), function(req, res, next) {
+  let id = req.params.id;
+  Ticket.findByIdAndRemove(id, (err, obj) => {
+    if (err){ return next(err); }
+    res.redirect("/");
+  });
+});
 
 // READ comments of the ticket
 router.get('/comment/:id', (req, res, next) => {
   var id = req.params.id;
   Comment.find({ticket_rel: id}).populate('creatorCommentId').exec()
-    .then( comments => {
-        console.log('COMMMENTS ARRIVED: ',comments);
+  .then( comments => {
         // Return JSON DATA
         res.json(comments);
     })
