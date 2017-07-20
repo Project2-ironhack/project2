@@ -27,8 +27,8 @@ router.get('/list', (req, res, next) => {
 //  Show template form adding
 router.get('/new', ensureLoggedIn('/auth/login'), (req, res, next) => {
   res.render('ticket/new');
-})
-;
+});
+
 //  Adding new Ticket
 router.post('/new', upload.single('photo'), (req, res, next) => {
 let image;
@@ -128,5 +128,3 @@ router.post('/comment/:id', ensureLoggedIn('/auth/login'), (req, res, next) => {
     res.redirect(`/ticket/${obj.ticket_rel}`);
   });
 });
-
-module.exports = router;
