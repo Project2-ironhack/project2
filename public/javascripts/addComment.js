@@ -51,18 +51,24 @@ function printCommentsList(commentsList) {
 $(document).ready(function() {
 
   const ticketId = $('#ticketId').html();
+  console.log(ticketId);
 
   // INIT PRINT COMMENTS
-  listCommentsOfTicket(ticketId).then(comments => {
-     printCommentsList(comments);
-   });
 
-  // Refresh view comments
-  setInterval(function () {
-   listCommentsOfTicket(ticketId).then(comments => {
+  if (ticketId !== undefined) {
+
+    listCommentsOfTicket(ticketId).then(comments => {
       printCommentsList(comments);
     });
-  }, 5 * 1000);
+
+    // Refresh view comments
+    setInterval(function() {
+      listCommentsOfTicket(ticketId).then(comments => {
+        printCommentsList(comments);
+      });
+    }, 5 * 1000);
+  }
+
 
 
   // ADD NEW COMMENT
@@ -75,12 +81,10 @@ $(document).ready(function() {
       image: $('#image').val(),
     };
     createOneRegister(ticketId, commentInfo).then(newComm => {
-      console.log('New comment created: ', newComm);
       $('#content').val('');
       $('#image').val('');
 
       listCommentsOfTicket(ticketId).then(comments => {
-        console.log('Comments object:', comments);
         printCommentsList(comments);
       });
 

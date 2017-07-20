@@ -54,10 +54,7 @@ router.post('/new', upload.single('photo'), (req, res, next) => {
 router.get('/:id', (req, res, next) => {
   Ticket.findById(req.params.id).populate('creatorId').exec()
     .then(ticket => {
-      let user;
-      if (req.user) user = req.user;
       res.render('ticket/detail', {
-        user: user,
         ticket: ticket
       });
       if(ticket) return ticket;
@@ -71,9 +68,8 @@ router.get('/:id/edit', ensureLoggedIn('auth/login'), (req, res, next) => {
     if (err)  {
       return next(err); }
     else {
-    let user;
+
     res.render('ticket/edit', {
-      user: user,
       ticket: ticket
     });
   }
@@ -83,11 +79,15 @@ router.get('/:id/edit', ensureLoggedIn('auth/login'), (req, res, next) => {
 // UPDATE TICKET
 router.post('/:id', upload.single('editPhoto'), ensureLoggedIn('auth/login'),  (req, res, next) => {
 
+  let image;
+  if (req.file) image = req.file.filename;
+  else image = "";
+
   let updates = {
     title: req.body.title,
     content: req.body.content,
     tags: req.body.tags,
-    image: req.file.filename
+    image: image
   };
 
   Ticket.findByIdAndUpdate(req.params.id, updates, (err, ticket) => {
