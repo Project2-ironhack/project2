@@ -1,19 +1,15 @@
-<div class="row">
-<div class="col-xs-12 col-md-10 col-md-offset-1">
+
   <div class="jumbotron">
         <h1><%= title %></h1>
-        <p class="shadow">Welcome to <%= title %>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque nunc est, tempus et venenatis id, ornare sed lorem.Curabitur sed ipsum et odio interdum pharetra nec sed libero. Sed velit massa, consectetur in mollis eget, elementum eu diam.</p>
-        <p><a class="btn btn-primary btn-lg">Learn more</a></p>
+        <p class="shadow">Join the web development community of <%= title %> to share your knowledge, learn or discuss!</p>
+        <p><a href="/auth/login" class="btn btn-lg btn-slack"><i class="fa fa-slack"></i> Login with Slack</a></p>
       </div>
-    </div>
 </div>
 
 <div class="container-fluid">
-
-
     <% tickets.forEach((ticket) => { %>
     <div class="row">
-        <div class="col-xs-12 col-md-9 col-md-offset-1">
+        <div class="col-xs-12 col-md-8 col-md-offset-2">
             <div class="panel panel-white post panel-shadow">
                 <div class="post-heading">
                     <div class="pull-left image">
@@ -31,17 +27,9 @@
 
                   <h2><a href="/ticket/<%=ticket._id %>"><%= ticket.title %></a></h2>
 
-                    <p><%= ticket.content %></p>
-                    <% console.log(ticket); if (ticket.image == undefined ) { %>
-
-                      <img src="/uploads/<%=ticket.image %>" class="img-responsive img-thumbnail" >
-
-                    <% } %>
-
+                    <p class="limit-words"><%= ticket.content %></p>
                     <div class="stats">
-                        <a href="#" class="btn btn-default stat-item">
-                            <i class="fa fa-tags icon"></i><%= ticket.tags %>
-                        </a>
+                        <span class="label lb-lg lb-<%= ticket.tags %>"><%= ticket.tags %></span>
                     </div>
                 </div>
             </div>

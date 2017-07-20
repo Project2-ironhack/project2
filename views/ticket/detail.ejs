@@ -5,7 +5,7 @@
           <div class="col-xs-12 col-md-10 col-md-offset-1">
 
               <div class="panel panel-white post panel-shadow">
-                <h3 class="text-center"><%= ticket.title %></h3>
+                <h2 class="text-center details-title"><%= ticket.title %></h2>
                 <hr>
                   <div class="post-heading">
                       <div class="pull-left image">
@@ -24,14 +24,14 @@
                 <p><%= ticket.content %></p>
                 <% if (ticket.image !== undefined) { %>
 
-                <img src="/uploads/<%=ticket.image %>" class="img-responsive img-thumbnail" >
+                <img src="/uploads/<%=ticket.image %>" class="img-responsive img-thumbnail imgdetails" >
 
                 <% } %>
                 <div class="stats">
-                    <a href="#" class="btn btn-default stat-item">
-                        <i class="fa fa-tags icon"></i><%= ticket.tags %>
-                    </a>
+                  <span class="label lb-lgx lb-<%= ticket.tags %>"><%= ticket.tags %></span>
 
+
+                  <div class="floatright">
                     <a href="/ticket/<%=ticket._id %>/edit" class="btn btn-md btn-warning">
                         <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit ticket
                     </a>
@@ -41,6 +41,7 @@
                     <a href="/ticket/<%=ticket._id %>/delete" class="btn btn-md btn-danger">
                         <i class="fa fa-trash-o" aria-hidden="true"></i> Delete ticket
                     </a>
+                  </div>
 
                 </div>
             </div>

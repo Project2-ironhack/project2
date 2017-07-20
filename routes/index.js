@@ -9,7 +9,7 @@ router.get('/', (req, res, next) => {
       let user;
       if (req.user) user = req.user;
       res.render('index', {
-        title: 'Express - Generated with IronGenerator',
+        title: 'Easy Answer',
         tickets: tickets,
         user: user || 'Easy Answer'
       });
