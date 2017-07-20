@@ -33,12 +33,12 @@ router.get('/new', ensureLoggedIn('/auth/login'), (req, res, next) => {
 router.post('/new', upload.single('photo'), (req, res, next) => {
 let image;
 if (req.file) image = req.file.filename;
- else image = "";
+ // else image = "";
   let ticket = new Ticket({
     title: req.body.title,
     content: req.body.content,
     tags: req.body.tags,
-    image: image,
+    image: req.file.filename || 'nofile',
     creatorId: req.user._id // IMPORTANT USER ID LOGGED IN
   });
   console.log(ticket);

@@ -32,9 +32,9 @@
                   <h2><a href="/ticket/<%=ticket._id %>"><%= ticket.title %></a></h2>
 
                     <p><%= ticket.content %></p>
-                    <% if (ticket.image !== "" || ticket.image !== undefined) { %>
+                    <% console.log(ticket); if (ticket.image == undefined ) { %>
 
-                    <img src="/uploads/<%=ticket.image %>" class="img-responsive img-thumbnail" >
+                      <img src="/uploads/<%=ticket.image %>" class="img-responsive img-thumbnail" >
 
                     <% } %>
 
