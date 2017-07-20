@@ -11,6 +11,8 @@ const passport  = require('passport');
 const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
 const {  ensureLoggedIn, ensureLoggedOut } = require('connect-ensure-login');
+const debug = require('debug')(`easy-answer:${path.basename(__filename).split('.')[0]}`);
+
 
 mongoose.connect('mongodb://localhost/easy-answer');
 

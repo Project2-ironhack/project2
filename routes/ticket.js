@@ -31,9 +31,11 @@ router.get('/new', ensureLoggedIn('/auth/login'), (req, res, next) => {
 
 //  Adding new Ticket
 router.post('/new', upload.single('photo'), (req, res, next) => {
-let image;
-if (req.file) image = req.file.filename;
- // else image = "";
+
+  let image;
+  if (req.file) image = req.file.filename;
+  else image = "";
+
   let ticket = new Ticket({
     title: req.body.title,
     content: req.body.content,
@@ -78,6 +80,7 @@ router.get('/:id/edit', ensureLoggedIn('auth/login'), (req, res, next) => {
   });
 });
 
+// UPDATE TICKET
 router.post('/:id', upload.single('editPhoto'), ensureLoggedIn('auth/login'),  (req, res, next) => {
 
   let updates = {

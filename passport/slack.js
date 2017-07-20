@@ -17,25 +17,32 @@ passport.use(new SlackStrategy({
   }, (accessToken, refreshToken, profile, next) => {
 
     console.log(profile);
-    // done(null, profile);
-    let newUser = {
-      token: accessToken,
-      slackId: profile.user.id || '',
-      teamId: profile.team.id || '',
-      teamName: profile.team.name || '',
-      teamImage: profile.team.image_88 || '',
-      username: profile.user.name || '',
-      email: profile.user.email || '',
-      imgAvatar: profile.user.image_512 || ''
-    };
-  console.log(newUser);
 
-  User.findOne({slackId:newUser.slackId}).exec()
-  .then(user => {
-    if(!user) return new User(newUser).save();
-    return User.findByIdAndUpdate(user._id, newUser,{new:true}).exec();
-  })
-  .then( user => next(null, user))  // go to next middleware
-  .catch(e => next(e));
+    if( profile.team.id === "T02CQ4EN4" || profile.team.name === "Ironhack"){
+      let newUser = {
+        token: accessToken,
+        slackId: profile.user.id || '',
+        teamId: profile.team.id || '',
+        teamName: profile.team.name || '',
+        teamImage: profile.team.image_88 || '',
+        username: profile.user.name || '',
+        email: profile.user.email || '',
+        imgAvatar: profile.user.image_512 || ''
+      };
+      console.log(newUser);
+
+      User.findOne({slackId:newUser.slackId}).exec()
+      .then(user => {
+        if(!user) return new User(newUser).save();
+        return User.findByIdAndUpdate(user._id, newUser,{new:true}).exec();
+      })
+      .then( user => next(null, user))  // go to next middleware
+      .catch(e => next(e));
+
+    }else{
+      console.log('User Team is not IRONHACK');
+      let errorMess =  'You cannot access to platform. You need to be a member of the slack ironhack team';
+      return next(null, false, { message: errorMess });
+    }
 }
 ));
