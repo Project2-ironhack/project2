@@ -1,5 +1,11 @@
-let url = 'http://localhost:3000/ticket/comment/';
+let winHref = window.location.href;
+console.log(winHref);
+let url;
+// let url = 'http://localhost:3000/ticket/comment/';
+if ( /localhost/.test(winHref) ) url = 'http://localhost:3000/ticket/comment/';
+if ( /herokuapp/.test(winHref) ) url = 'https://easy-answer.herokuapp.com/ticket/comment/';
 
+console.log(url);
 function createOneRegister(ticketId, data) {
   return $.ajax({
     url: `${url}${ticketId}`,
@@ -22,6 +28,12 @@ function printCommentsList(commentsList) {
   container.children().remove(); // Delete all containers with char info
 
   commentsList.forEach(comment => {
+    let contImage;
+    if (comment.image === "nofile" || comment.image === undefined ) {
+      contImage = '';
+    }else{
+      contImage = `<img src="/uploads/${comment.image}" class="img-responsive img-thumbnail imgdetails" >`;
+    }
     let cont = `<div class="row">
         <div class="col-xs-12 col-md-8 col-md-offset-2">
             <div class="panel panel-white post panel-shadow">
@@ -39,6 +51,7 @@ function printCommentsList(commentsList) {
                 </div>
                 <div class="post-description">
                     <p>${ comment.content }</p>
+                    ${contImage}
                 </div>
             </div>
         </div>
@@ -51,6 +64,7 @@ function printCommentsList(commentsList) {
 $(document).ready(function() {
 
   const ticketId = $('#ticketId').html();
+
   console.log(ticketId);
 
   // INIT PRINT COMMENTS
@@ -69,28 +83,15 @@ $(document).ready(function() {
     }, 5 * 1000);
   }
 
-
-
   // ADD NEW COMMENT
-  $('#comment-form').on('submit', (event) => {
-    event.preventDefault();
-
-    // get data
-    const commentInfo = {
-      content: $('#content').val(),
-      image: $('#image').val(),
-    };
-    createOneRegister(ticketId, commentInfo).then(newComm => {
-      $('#content').val('');
-      $('#image').val('');
-
+  $('#comment-form').submit(function() {
+    $("#status").empty().text("File is uploading...");
+    $(this).ajaxSubmit().then(newComm => {
       listCommentsOfTicket(ticketId).then(comments => {
         printCommentsList(comments);
       });
-
-    });
-
-
+    }
+    );
   });
 
 });
