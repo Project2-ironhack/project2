@@ -116,20 +116,68 @@ router.get('/comment/:id', (req, res, next) => {
     .catch( err => console.log(err));
 });
 
-// Add new comment in ticket
-router.post('/comment/:id', ensureLoggedIn('/auth/login'), (req, res, next) => {
-  let comment = new Comment({
-    content: req.body.content,
-    image: req.body.image,
-    ticket_rel: req.params.id,
-    creatorCommentId: req.user._id,
-    solved: false,
-    votes: []
-  });
-  console.log('NEW COMMENT', comment);
-  comment.save((err, obj) => {
-    res.redirect(`/ticket/${obj.ticket_rel}`);
-  });
+var storage	=	multer.diskStorage({
+  destination: function (req, file, callback) {
+    callback(null, './public/uploads');
+  },
+  filename: function (req, file, callback) {
+    console.log(file);
+    callback(null, file.fieldname + '-' + Date.now());
+  }
 });
+
+var upload2 = multer({ storage : storage}).single('photo-comment');
+
+router.post('/comment/:id', function(req,res){
+	upload2(req,res,function(err) {
+		if(err) {
+			return res.end("Error uploading file.");
+		}
+		// res.end("File is uploaded");
+    console.log(req.file);
+    let image;
+    if (req.file) image = req.file.filename;
+    else image = 'nofile';
+
+    console.log(image);
+
+    let comment = new Comment({
+      content: req.body.content,
+      image: image,
+      ticket_rel: req.params.id,
+      creatorCommentId: req.user._id,
+      solved: false,
+      votes: []
+    });
+    console.log('NEW COMMENT', comment);
+    comment.save((err, obj) => {
+      res.redirect(`/ticket/${obj.ticket_rel}`);
+    });
+	});
+});
+
+//Add new comment in ticket
+// router.post('/comment/:id', [upload.single('photo-comment'), ensureLoggedIn('/auth/login')], (req, res, next) => {
+//
+//   console.log(res);
+//   console.log("NEW RESSSSSSSS!!!!!!!!!!!!");
+// console.log(req.file);
+//   let image;
+//   if (req.file) image = req.file.filename;
+//   else image = 'nofile';
+//
+//   let comment = new Comment({
+//     content: req.body.content,
+//     image: image,
+//     ticket_rel: req.params.id,
+//     creatorCommentId: req.user._id,
+//     solved: false,
+//     votes: []
+//   });
+//   console.log('NEW COMMENT', comment);
+//   comment.save((err, obj) => {
+//     res.redirect(`/ticket/${obj.ticket_rel}`);
+//   });
+// });
 
 module.exports = router;

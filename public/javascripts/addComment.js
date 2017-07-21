@@ -1,11 +1,13 @@
 let winHref = window.location.href;
 console.log(winHref);
+
 let url;
 // let url = 'http://localhost:3000/ticket/comment/';
 if ( /localhost/.test(winHref) ) url = 'http://localhost:3000/ticket/comment/';
 if ( /herokuapp/.test(winHref) ) url = 'https://easy-answer.herokuapp.com/ticket/comment/';
 
 console.log(url);
+
 function createOneRegister(ticketId, data) {
   return $.ajax({
     url: `${url}${ticketId}`,
@@ -34,6 +36,7 @@ function printCommentsList(commentsList) {
     }else{
       contImage = `<img src="/uploads/${comment.image}" class="img-responsive img-thumbnail imgdetails" >`;
     }
+
     let cont = `<div class="row">
         <div class="col-xs-12 col-md-8 col-md-offset-2">
             <div class="panel panel-white post panel-shadow">
@@ -68,7 +71,6 @@ $(document).ready(function() {
   console.log(ticketId);
 
   // INIT PRINT COMMENTS
-
   if (ticketId !== undefined) {
 
     listCommentsOfTicket(ticketId).then(comments => {
@@ -86,12 +88,15 @@ $(document).ready(function() {
   // ADD NEW COMMENT
   $('#comment-form').submit(function() {
     $("#status").empty().text("File is uploading...");
+
     $(this).ajaxSubmit().then(newComm => {
       listCommentsOfTicket(ticketId).then(comments => {
         printCommentsList(comments);
       });
     }
+
     );
   });
+
 
 });
