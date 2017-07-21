@@ -1,4 +1,12 @@
-let url = 'http://localhost:3000/ticket/comment/';
+let winHref = window.location.href;
+console.log(winHref);
+
+let url;
+// let url = 'http://localhost:3000/ticket/comment/';
+if ( /localhost/.test(winHref) ) url = 'http://localhost:3000/ticket/comment/';
+if ( /herokuapp/.test(winHref) ) url = 'https://easy-answer.herokuapp.com/ticket/comment/';
+
+console.log(url);
 
 function createOneRegister(ticketId, data) {
   return $.ajax({
@@ -23,7 +31,7 @@ function printCommentsList(commentsList) {
 
   commentsList.forEach(comment => {
     let contImage;
-    if (comment.image == "nofile" || comment.image == undefined ) {
+    if (comment.image === "nofile" || comment.image === undefined ) {
       contImage = '';
     }else{
       contImage = `<img src="/uploads/${comment.image}" class="img-responsive img-thumbnail imgdetails" >`;
