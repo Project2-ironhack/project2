@@ -22,6 +22,13 @@ function printCommentsList(commentsList) {
   container.children().remove(); // Delete all containers with char info
 
   commentsList.forEach(comment => {
+    let contImage;
+    if (comment.image == "nofile" || comment.image == undefined ) {
+      contImage = '';
+    }else{
+      contImage = `<img src="/uploads/${comment.image}" class="img-responsive img-thumbnail imgdetails" >`;
+    }
+
     let cont = `<div class="row">
         <div class="col-xs-12 col-md-8 col-md-offset-2">
             <div class="panel panel-white post panel-shadow">
@@ -39,6 +46,7 @@ function printCommentsList(commentsList) {
                 </div>
                 <div class="post-description">
                     <p>${ comment.content }</p>
+                    ${contImage}
                 </div>
             </div>
         </div>
@@ -54,7 +62,6 @@ $(document).ready(function() {
   console.log(ticketId);
 
   // INIT PRINT COMMENTS
-
   if (ticketId !== undefined) {
 
     listCommentsOfTicket(ticketId).then(comments => {
@@ -69,28 +76,18 @@ $(document).ready(function() {
     }, 5 * 1000);
   }
 
-
-
   // ADD NEW COMMENT
-  $('#comment-form').on('submit', (event) => {
-    event.preventDefault();
+  $('#comment-form').submit(function() {
+    $("#status").empty().text("File is uploading...");
 
-    // get data
-    const commentInfo = {
-      content: $('#content').val(),
-      image: $('#image').val(),
-    };
-    createOneRegister(ticketId, commentInfo).then(newComm => {
-      $('#content').val('');
-      $('#image').val('');
-
+    $(this).ajaxSubmit().then(newComm => {
       listCommentsOfTicket(ticketId).then(comments => {
         printCommentsList(comments);
       });
+    }
 
-    });
-
-
+    );
   });
+
 
 });

@@ -23,10 +23,14 @@
             <div class="post-description">
                 <p><%= ticket.content %></p>
 
-                <% if (ticket.image != "nofile" || ticket.image == undefined ) { %>
-                  <img src="/uploads/<%=ticket.image %>" class="img-responsive img-thumbnail imgdetails" >
+                <% if (ticket.image === "nofile" || ticket.image === undefined ) { %>
+                  <p></p>
 
-                <% } %>
+                <% }else { %>
+
+                  <img src="/uploads/<%=ticket.image %>" class="img-responsive img-thumbnail imgdetails" >
+                <%} %>
+
                 <div class="stats">
                   <span class="label lb-lgx lb-<%= ticket.tags %>"><%= ticket.tags %></span>
 
@@ -54,18 +58,19 @@
   <!-- TODO Form create new comment -->
   <div class="row">
     <div class="col-xs-12 col-md-10 col-md-offset-1">
-      <form id="comment-form" method="POST">
+      <form id="comment-form" method="POST" action="/ticket/comment/<%=ticket._id %>" enctype="multipart/form-data">
         <div class="form-group">
           <label for="content">Add comment</label>
           <textarea class="form-control" id="content" name="content" rows="5"></textarea>
         </div>
-        <!-- <div class="form-group">
+        <div class="form-group">
           <label for="image">Add image (optional)</label>
-          <input type="file" class="form-control" id="image" name="image">
-        </div> -->
+          <input type="file" class="form-control" id="image" name="photo-comment">
+        </div>
         <button class="btn btn-default"> Add Comment </button>
       </form>
     </div>
   </div>
+
 
 </div>
