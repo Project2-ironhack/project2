@@ -3,8 +3,8 @@ console.log(winHref);
 
 let url;
 // let url = 'http://localhost:3000/ticket/comment/';
-if ( /localhost/.test(winHref) ) url = 'http://localhost:3000/ticket/comment/';
-if ( /herokuapp/.test(winHref) ) url = 'https://easy-answer.herokuapp.com/ticket/comment/';
+if (/localhost/.test(winHref)) url = 'http://localhost:3000/ticket/comment/';
+if (/herokuapp/.test(winHref)) url = 'https://easy-answer.herokuapp.com/ticket/comment/';
 
 console.log(url);
 
@@ -12,7 +12,7 @@ function createOneRegister(ticketId, data) {
   return $.ajax({
     url: `${url}${ticketId}`,
     method: 'POST',
-    data: data,
+    data: data
   });
 }
 
@@ -31,9 +31,9 @@ function printCommentsList(commentsList) {
 
   commentsList.forEach(comment => {
     let contImage;
-    if (comment.image === "nofile" || comment.image === undefined ) {
+    if (comment.image === "nofile" || comment.image === undefined) {
       contImage = '';
-    }else{
+    } else {
       contImage = `<img src="/uploads/${comment.image}" class="img-responsive img-thumbnail imgdetails" >`;
     }
 
@@ -85,17 +85,25 @@ $(document).ready(function() {
     }, 5 * 1000);
   }
 
-  // ADD NEW COMMENT
-  $('#comment-form').submit(function() {
-    $("#status").empty().text("File is uploading...");
 
-    $(this).ajaxSubmit().then(newComm => {
+
+  // ADD NEW COMMENT
+  $('#comment-form').on('submit', (event) => {
+    // event.preventDefault();
+
+    var formData = new FormData(this);
+    // get data
+    // const commentInfo = {
+    //   content: $('#content').val(),
+    //   image: $('#image').val(),
+    // };
+    createOneRegister(ticketId, formData).then(newComm => {
+      $('#content').val('');
+      $('#image').val('');
       listCommentsOfTicket(ticketId).then(comments => {
         printCommentsList(comments);
       });
-    }
-
-    );
+    });
   });
 
 
